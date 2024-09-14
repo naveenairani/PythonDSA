@@ -17,8 +17,8 @@ Before running the code or tests, ensure you have Python 3.x installed on your m
 ## Project Structure
 
 ```
-├── dynamic_array.py       # Main DynamicArray class implementation
-├── test_dynamic_array.py  # Unit tests for DynamicArray class
+├── DynamicArray.py       # Main DynamicArray class implementation
+├── DynamicArrayUnittest.py  # Unit tests for DynamicArray class
 ├── README.md              # Project overview and instructions
 ```
 
@@ -32,18 +32,18 @@ Before running the code or tests, ensure you have Python 3.x installed on your m
 
 ## Running the Main Code
 
-The `dynamic_array.py` file contains the main implementation of the `DynamicArray` class. You can modify it or import it into your own projects.
+The `DynamicArray.py` file contains the main implementation of the `DynamicArray` class. You can modify it or import it into your own projects.
 
 ## Unit Testing
 
-This project includes unit tests to ensure that the `DynamicArray` class functions as expected. The tests are located in the `test_dynamic_array.py` file and are built using Python's `unittest` module.
+This project includes unit tests to ensure that the `DynamicArray` class functions as expected. The tests are located in the `DynamicArrayUnittest.py` file and are built using Python's `unittest` module.
 
 ### Running the Unit Tests
 
 1. Navigate to the project directory.
 2. Run the tests using the following command:
    ```bash
-   python -m unittest test_dynamic_array.py
+   python -m unittest DynamicArrayUnittest.py
    ```
 
 ## Contributing
