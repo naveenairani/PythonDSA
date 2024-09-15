@@ -110,9 +110,10 @@ class DynamicArray:
     def BubbleSort(self):
         for i in range(self.len-1):
             for j in range(self.len - i -1):
-                temp = self.arr[j]
-                self.arr[j+1] = temp
-                self.arr[j] = self.arr[j+1]
+                if self.arr[j]> self.arr[j+1]:
+                    temp = self.arr[j]
+                    self.arr[j] = self.arr[j+1]
+                    self.arr[j+1] = temp
 
     
     def contains(self, obj):
@@ -135,3 +136,10 @@ class DynamicArray:
             return "[]"
         else:
             return "[" + ",".join(map(str, self.arr[:self.len]))+']'
+
+list = DynamicArray()
+list.append(30)
+list.append(10)
+list.append(20)
+list.BubbleSort()
+print(list)

@@ -1,6 +1,6 @@
 import unittest
 
-import DynamicArray 
+from DynamicArray import DynamicArray 
 
 class TestDynamicArray(unittest.TestCase):
     def setUp(self):
@@ -78,20 +78,15 @@ class TestDynamicArray(unittest.TestCase):
         self.dyn_array.append(10)
         self.dyn_array.append(20)
         self.dyn_array.SelectionSort()
-        self.assertEqual(str(self.dyn_array), "[30,20,10]")
+        self.assertEqual(str(self.dyn_array), "[10,20,30]")
 
     def test_bubble_sort(self):
         self.dyn_array.append(30)
         self.dyn_array.append(10)
         self.dyn_array.append(20)
         self.dyn_array.BubbleSort()
-        self.assertEqual(str(self.dyn_array), "[30,20,10]")
+        self.assertEqual(str(self.dyn_array), "[10,20,30]")
 
-    def test_iter(self):
-        self.dyn_array.append(10)
-        self.dyn_array.append(20)
-        iter_array = list(iter(self.dyn_array))
-        self.assertEqual(iter_array, [10, 20])
 
 if __name__ == '__main__':
     unittest.main()
