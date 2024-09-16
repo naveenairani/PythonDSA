@@ -137,9 +137,3 @@ class DynamicArray:
         else:
             return "[" + ",".join(map(str, self.arr[:self.len]))+']'
 
-list = DynamicArray()
-list.append(30)
-list.append(10)
-list.append(20)
-list.BubbleSort()
-print(list)
