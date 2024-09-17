@@ -263,3 +263,16 @@ class DoublyLinkedList:
             element.append(str(trav.data))
             trav = trav.Next
         return '<-'+'<->'.join(element)+'->'
+
+
+dl = DoublyLinkedList()
+for i in range(10):
+    dl.addatLast(i)
+
+print(dl)
+print(dl.forward())
+print(dl.forward())
+print(dl.forward())
+print(dl.forward())
+print(dl.backward())
+print(dl.backward())
