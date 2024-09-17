@@ -35,15 +35,12 @@ class SinglyLinkedList:
             self.append(elem)
     
     def append(self,elem):
+        new_node = Node(elem)
         if self.is_empty():
-            self.addFirst(elem)
+            self.head = self.tail = new_node
         else:
-            new_node = Node(elem)
-            if self.is_empty():
-                self.head = self.tail = new_node
-            else:
-                self.tail.next = new_node
-                self.tail = new_node
+            self.tail.next = new_node
+            self.tail = new_node
 
 
     def set(self, elem, index):
@@ -116,7 +113,7 @@ class SinglyLinkedList:
         trav = self.head
         if self.size == index == 0:
             self.removeFirstNode()
-        elif self.size == index:
+        elif index == self.size:
             self.removeLastNode()
         else:
             trav = self.head
@@ -252,8 +249,7 @@ class SinglyLinkedList:
             fast = fast.next
             if slow == fast:
                 return True
-            else:
-                return False
+        return False
 
 
     def traverse(self):

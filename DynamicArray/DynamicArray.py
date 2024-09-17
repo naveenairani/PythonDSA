@@ -103,7 +103,7 @@ class DynamicArray:
             min = i
             for j in range(i+1,self.len):
                 if self.arr[min] < self.arr[j]:
-                    min = j
+                    j = min
             
                 self.arr[min], self.arr[j] = self.arr[j], self.arr[min]
 
