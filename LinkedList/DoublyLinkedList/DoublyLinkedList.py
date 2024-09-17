@@ -225,9 +225,10 @@ class DoublyLinkedList:
         if self.cNode is None:
             self.cNode = self.head
             data = self.cNode.data
+            return data
         if self.cNode is not None:
-            data = self.cNode.data
             self.cNode = self.cNode.Next
+            data = self.cNode.data
             return data
         else:
             raise StopIteration("End of elements")
@@ -235,9 +236,11 @@ class DoublyLinkedList:
     def backward(self):
         if self.cNode is None:
             self.cNode = self.tail
-        if self.cNode is not None:
             data = self.cNode.data
+            return data
+        if self.cNode is not None:
             self.cNode = self.cNode.Prev
+            data = self.cNode.data
             return data
         elif self.cNode.Prev is None:
             raise StopIteration("end of elements")
@@ -264,15 +267,3 @@ class DoublyLinkedList:
             trav = trav.Next
         return '<-'+'<->'.join(element)+'->'
 
-
-dl = DoublyLinkedList()
-for i in range(10):
-    dl.addatLast(i)
-
-print(dl)
-print(dl.forward())
-print(dl.forward())
-print(dl.forward())
-print(dl.forward())
-print(dl.backward())
-print(dl.backward())
