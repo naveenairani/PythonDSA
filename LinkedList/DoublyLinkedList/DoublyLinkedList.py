@@ -40,6 +40,54 @@ class DoublyLinkedList:
             self.tail = self.tail.Next
         self.size += 1
 
+    def peekfirst(self):
+        return self.head
+    def peeklast(self):
+        return self.tail
+    def indexof(self, data):
+        trav = self.head
+        i = 0
+        for _ in range(self.size):
+            if trav.data == data:
+                i += 1
+                return trav.data, i
+            else:
+                trav = trav.Next
+                i+=1
+
+    def count(self, data):
+        trav = self.head
+        i = 0
+        for _ in range(self.size):
+            if trav.data == data:
+                i += 1
+                return trav.data, i
+            else:
+                trav = trav.Next
+
+    def issorted(self):
+        trav = self.head
+        while trav.Next:
+            if trav.data > trav.Next.data:
+                return False
+            else:
+                trav = trav.Next
+        return True
+
+    def sort(self):
+        trav = self.head
+        while trav.Next:
+            if trav.data > trav.Next.data:
+                trav.data, trav.Next.data = trav.Next.data, trav.data
+            trav = trav.Next
+
+
+    def append(self, elem):
+        if self.isempty():
+            self.addatFirst(elem)
+        else:
+            self.addatLast(elem)
+
     def add(self, elem, index):
         if index<0 or index>self.size:
             raise IndexError("Index out of bound")
@@ -125,7 +173,26 @@ class DoublyLinkedList:
             trav.Prev = new_node
         
         self.size +=1
-            
+    
+    def update(self, elem, index):
+        if index>self.size or index<0:
+            raise IndexError("Index out of bound")
+        elif index == 0:
+            self.head.data = elem
+        elif index == self.size:
+            self.tail.data = elem
+        else:
+            if index < self.size // 2:
+                trav = self.head
+                for _ in range(index):
+                    trav = trav.Next
+                trav.data = elem
+            else:
+                trav = self.tail
+                for _ in range(self.size - 1, index, -1):
+                    trav = trav.Prev
+                trav.data = elem
+        
             
 
     def removeFirst(self):
@@ -244,8 +311,30 @@ class DoublyLinkedList:
             return data
         elif self.cNode.Prev is None:
             raise StopIteration("end of elements")
-
-
+    
+    def reverse(self):
+        if self.head is None:
+            return 
+        else:
+            next = self.head
+            prev = self.tail
+            for _ in range(self.size // 2):
+                next.data, prev.data = prev.data, next.data
+                prev = prev.Prev
+                next = next.Next
+    
+    def merge(self, newlist):
+        if not isinstance(newlist, DoublyLinkedList):
+            raise TypeError("Argument is not a DoublyLinkedList")
+        if self.head is None:
+            self.head = newlist.head
+            self.tail = newlist.tail
+        else:
+            self.tail.Next = newlist.head
+            newlist.head.Prev = self.tail
+            self.tail = newlist.tail
+            self.size += newlist.size
+        return self
     def __iter__(self):
         self._iter_node = self.head
         return self
@@ -266,4 +355,3 @@ class DoublyLinkedList:
             element.append(str(trav.data))
             trav = trav.Next
         return '<-'+'<->'.join(element)+'->'
-
