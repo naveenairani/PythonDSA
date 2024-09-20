@@ -34,6 +34,7 @@ class Queue:
                 self.tail = None
             self.length -= 1
             return popdata
+    
     def contains(self,data):
         current = self.head
         while current:
@@ -61,6 +62,73 @@ class Queue:
             element.append(str(current.data))
             current = current.next
         return print("<-".join(element))
+    
+    def enqueuefromlist(self, qlist):
+        if self.head is None:
+            for data in qlist:
+                self.push(data)
+        else:
+            for data in qlist:
+                self.push(data)
+
+    def pop_multiple(self,n):
+        for _ in range(n):
+            self.pop()
+
+    def rotate(self):
+        current = self.head
+        self.head = self.head.next
+        if self.tail is not None:
+            self.tail.next = current
+            self.tail = current
+            self.tail.next =None
+    
+    def multipeek(self, n):
+        if n>self.length or n<0:
+            raise IndexError("Index Out of boound")
+        peek = Queue()
+        current = self.head
+        for _ in range(n):
+            peek.push(current.data)
+            current = current.next
+        return peek
+    
+    def swap(self,first=0,second=1):
+        if self.size() <2:
+            raise IndexError("Queue is empty")
+        if first == second:
+            return "No operation required"
+        if first > second:
+            first, second = second, first
+
+        firstnode = self.head
+        secondnode = self.head.next
+        if first ==0 and second==1:
+            firstnode.next = secondnode.next
+            secondnode.next = firstnode
+            self.head = secondnode
+        else:
+            prevfirst = None
+            current = self.head
+            for _ in range(first):
+                prevfirst = current
+                current = current.next
+            prevsecond = current
+            currentnext = current.next
+            for _ in range(second-first-1):
+                prevsecond = currentnext
+                currentnext = currentnext.next
+            if current is None or currentnext is None:
+                return "invalid"
+            if prevfirst is not None:
+                prevfirst.next = currentnext
+            else:
+                self.head = currentnext
+            if prevsecond is not None:
+                prevsecond.next = current
+            else:
+                self.head = current
+            current.next, currentnext.next = currentnext.next, current.next
 
     def clear(self):
         self.head, self.tail, self.length= None, None,0
@@ -88,11 +156,3 @@ class Queue:
             element.append(str(current.data))
             current = current.next
         return "<-".join(element)
-
-q = Queue()
-q.push(10)
-q.push(20)
-q.push(30)
-print(q.contains(40))
-q.push(10)
-q.display()
