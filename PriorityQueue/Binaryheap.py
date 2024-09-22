@@ -30,7 +30,8 @@ class Binaryheap:
         self.heap[0] = self.heap[self.heapsize - 1]
         self.heap.pop()
         self.heapsize -= 1
-        self.sink(0)
+        if self.heapsize>0:
+            self.sink(0)
         return root
     
     def contains(self, elem):
@@ -39,10 +40,7 @@ class Binaryheap:
     def add(self, elem):
         if elem is None:
             raise ValueError("Element can not be None")
-        if self.heapsize< len(self.heap):
-            self.heap.insert(self.heapsize, elem)
-        else:
-            self.heap.append(elem)
+        self.heap.append(elem)
         self.swim(self.heapsize)
         self.heapsize += 1
     
@@ -53,11 +51,13 @@ class Binaryheap:
         self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
 
     def swim(self, k):
-        parent  = (k-1)//2
-        while k>0 and self.less(k, parent):
-            self.swap(k, parent)
-            k = parent
-            parent  = (k-1)//2
+        while k>0:
+            parent = (k - 1)//2
+            if self.less(k, parent):
+                self.swap(k, parent)
+                k = parent
+            else:
+                break
 
     def sink(self,k):
         while True:
@@ -66,16 +66,39 @@ class Binaryheap:
             smallest = k
             if left < self.heapsize and self.less(left, smallest):
                 smallest = left
-            if right > self.heapsize and self.less(right, smallest):
+            if right < self.heapsize and self.less(right, smallest):
                 smallest = right
             if smallest == k:
                 break
-        self.swap(k, smallest)
-        k = smallest
+            self.swap(k, smallest)
+            k = smallest
 
     def heapify(self):
         for i in range((self.heapsize-1)//2,-1,-1):
             self.sink(i)
+    
+    def remove(self, elem):
+        for i in range(self.heapsize):
+            if self.heap[i] == elem:
+                return self.remove_at(i)
+        return False
+    
+    def remove_at(self, i):
+        if self.is_empty():
+            return None
+        
+        self.heapsize -= 1
+        removed_data = self.heap[i]
+        self.swap(i, self.heapsize)
+        self.heap.pop()
+
+        if i == self.heapsize:
+            return removed_data
+        self.sink(i)
+
+        if self.heap[i] == removed_data:
+            self.swim(i)
+        return removed_data
 
     def __iter__(self):
         self.index = 0
@@ -104,3 +127,18 @@ class Binaryheap:
             level += 1
             element_in_level *= 2
         return "\n".join(output)
+
+b = Binaryheap()
+b.add(1)
+b.add(3)
+b.add(2)
+b.add(10)
+b.add(5)
+
+print("Before removal:")
+print(b)
+
+b.remove(3)
+
+print("After removal:")
+print(b)
