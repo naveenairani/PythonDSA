@@ -8,7 +8,7 @@ class Binaryheap:
         if self.heapsize>0:
             self.heapify()
     
-    def  is_empty(self):
+    def  is_empty(self): 
         return self.heapsize == 0
     
     def size(self):
@@ -99,6 +99,39 @@ class Binaryheap:
         if self.heap[i] == removed_data:
             self.swim(i)
         return removed_data
+    
+    def replace(self, elem):
+        if self.is_empty():
+            self.add(elem)
+            return None
+        old_root = self.heap[0]
+        self.heap[0] = elem
+        self.sink(0)
+        return old_root
+
+    def merge(self, heap):
+        for elem in heap.heap:
+            self.add(elem)
+    
+    def decrease(self, old_val, new_val):
+        if old_val<=new_val:
+            return False
+        for i in range(self.heapsize):
+            if self.heap[i] == old_val:
+                self.heap[i] = new_val
+                self.swim(i)
+                return True
+        return False
+    
+    def increase(self, old_val, new_val):
+        if new_val<=old_val:
+            return False
+        for i in range(self.heapsize):
+            if self.heap[i]==old_val:
+                self.heap[i] = new_val
+                self.sink(i)
+                return True
+        return False
 
     def __iter__(self):
         self.index = 0
@@ -127,18 +160,3 @@ class Binaryheap:
             level += 1
             element_in_level *= 2
         return "\n".join(output)
-
-b = Binaryheap()
-b.add(1)
-b.add(3)
-b.add(2)
-b.add(10)
-b.add(5)
-
-print("Before removal:")
-print(b)
-
-b.remove(3)
-
-print("After removal:")
-print(b)
