@@ -58,6 +58,9 @@ class DynamicArray:
         self.arr[index] = value
         self.len += 1
     
+    def swap(self, i, j):
+        self.arr[i], self.arr[j] = self.arr[j], self.arr[i]
+
     def remove(self, index):
         if index >= self.len or index < 0:
             raise IndexError("Index out of bound")
@@ -136,4 +139,3 @@ class DynamicArray:
             return "[]"
         else:
             return "[" + ",".join(map(str, self.arr[:self.len]))+']'
-

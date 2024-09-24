@@ -15,7 +15,7 @@ class Queue:
     def isempty(self):
         return self.head is None
 
-    def push(self, data):
+    def enqueue(self, data):
         newnode = Node(data)
         if self.head is None:
             self.head = self.tail = newnode
@@ -24,7 +24,7 @@ class Queue:
             self.tail = newnode
         self.length += 1
         
-    def pop(self):
+    def dequeue(self):
         if self.isempty():
             raise IndexError("Queue is empty")
         else:
@@ -63,17 +63,29 @@ class Queue:
             current = current.next
         return print("<-".join(element))
     
-    def enqueuefromlist(self, qlist):
+    def enqueuemultiple(self, qlist):
         if self.head is None:
             for data in qlist:
-                self.push(data)
+                self.enqueue(data)
         else:
             for data in qlist:
-                self.push(data)
+                self.enqueue(data)
+    
+    def fromlist(self, qlist):
+        self.enqueuemultiple(qlist)
 
-    def pop_multiple(self,n):
+    def tolist(self):
+        current = self.head
+        element = []
+        while current:
+            element.append(current.data)
+            current = current.next
+        return element
+
+
+    def dequemultiple(self,n):
         for _ in range(n):
-            self.pop()
+            self.dequeue()
 
     def rotate(self):
         current = self.head
