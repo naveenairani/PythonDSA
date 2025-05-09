@@ -1,4 +1,5 @@
 class Node:
+    ''' A node class for stack implementation.'''
     def __init__(self,data):
         self.data = data
         self.next = None
